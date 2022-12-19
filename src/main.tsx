@@ -5,6 +5,8 @@ import './css/GlobalStyles.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <div className='w-full h-full'>
+      <App />
+    </div>
   </React.StrictMode>,
 )
