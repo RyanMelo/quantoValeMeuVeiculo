@@ -25,7 +25,8 @@ Projeto com o objetivo de avaliar o preço do seu veiculo com base na tabela Fip
 
 ## Api Usada
 [FIPE API HTTP REST](https://deividfortuna.github.io/fipe/)
-## Stack utilizada
+
+## Tecnologias utilizadas
 
 **Front-end:** React, Vite, TailwindCSS
 
