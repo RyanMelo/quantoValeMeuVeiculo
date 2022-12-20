@@ -1,16 +1,15 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
-
-export function Faq(): JSX.Element {
+export function Faq() {
     return(
         <>  
             <div>
                 <Disclosure>
                     {({ open }) => (
                         <>
-                        <Disclosure.Button className="bg-white flex w-full justify-between rounded-t-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                            <span className='text-lg text-primary-color'>O que é e como funciona A Tabela Fipe?</span>
+                        <Disclosure.Button className="bg-white flex w-full justify-between rounded-t-lg bg-purple-100 p-4 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                            <span className='text-xl text-primary-color'>O que é e como funciona A Tabela Fipe ?</span>
                             <ChevronUpIcon
                             className={`${
                                 open ? 'rotate-180 transform' : ''
@@ -28,40 +27,19 @@ export function Faq(): JSX.Element {
                             <br />
                             <br />
                             Por isso, todos que desejam comprar um veículo ou vender devem acompanhar as notícias sobre a Fipe.
-                            Aliás, a análise deveria ser feita muito antes de adquirir um carro novo. Afinal, é uma maneira de analisar o quanto será pago de IPVA, de seguro e por quanto é possível revende-lo.
-                            <br />
-                            <br />
-                            <strong>Como a tabela é construída?</strong>
-                            <br />
-                            <br />
-                            Mensalmente, a Fipe coleta os dados sobre diferentes veículos, como carros, motos e caminhões, novos e usados, no mercado nacional.
-                            <br />
-                            <br />
-                            Após a coleta, são excluídos os preços muito acima ou muito abaixo da média. Também não são avaliados os táxis, veículos de frota, viaturas e outros que não se enquadrem no uso comum.
-                            <br />
-                            <br />
-                            A Tabela Fipe também não leva em conta a cor do veículo e a presença de acessórios. Por fim, vale lembrar que não é o ano de fabricação, mas o ano do modelo que é considerado.
-                            <br />
-                            <br />
-                            A partir desses dados, cada modelo de veículo recebe uma avaliação, que definirá o valor na Tabela Fipe. Hoje, o índice é a principal referência para lojistas, comerciante e vendedores.
-                            <br />
-                            <br />
-                            Porém, no caso de venda de automóveis, é importante usar o índice como um parâmetro, mas considerar outros fatores também. Afinal, o veículo pode conter acessórios e adicionais que o valorizam, por exemplo.
-                            <br />
-                            <br />
-                            Como visto, a Tabela Fipe tem muitas utilidades. E, embora não seja um instrumento obrigatório, é muito utilizada na formação de valores de veículos. Por isso, vale a pena acompanhar os valores divulgados mensalmente.
+                            Aliás, a análise deveria ser feita muito antes de adquirir um carro novo. Afinal, é uma maneira de analisar o quanto será pago de IPVA, de seguro e por quanto é possível revende-lo. 
                         </Disclosure.Panel>
                         </>
                     )}
                 </Disclosure>
             </div>
             
-            <div className='mt-5'>
+            <div className='mt-7'>
                 <Disclosure>
                     {({ open }) => (
                         <>
-                        <Disclosure.Button className="bg-white flex w-full justify-between rounded-t-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                            <span className='text-lg text-primary-color'>E como os valores médios são encontrados ?</span>
+                        <Disclosure.Button className="bg-white flex w-full justify-between rounded-t-lg bg-purple-100 p-4 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                            <span className='text-xl text-primary-color'>Como os valores médios são encontrados ?</span>
                             <ChevronUpIcon
                             className={`${
                                 open ? 'rotate-180 transform' : ''
@@ -97,6 +75,41 @@ export function Faq(): JSX.Element {
                             <br />
                             <br />
                             O valor da Tabela Fipe também é usado como parâmetro para o cálculo de valores do IPVA e de indenização do seguro dos automóveis.
+                        </Disclosure.Panel>
+                        </>
+                    )}
+                </Disclosure>
+            </div>
+
+            <div className='mt-7'>
+                <Disclosure>
+                    {({ open }) => (
+                        <>
+                        <Disclosure.Button className="bg-white flex w-full justify-between rounded-t-lg bg-purple-100 p-4 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                            <span className='text-xl text-primary-color'>Como a tabela é construída ?</span>
+                            <ChevronUpIcon
+                            className={`${
+                                open ? 'rotate-180 transform' : ''
+                            } h-5 w-5 text-purple-500`}
+                            />
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="bg-white px-4 pt-4 pb-2 text-lg text-gray-500 rounded-b-lg">
+                            Mensalmente, a Fipe coleta os dados sobre diferentes veículos, como carros, motos e caminhões, novos e usados, no mercado nacional.
+                            <br />
+                            <br />
+                            Após a coleta, são excluídos os preços muito acima ou muito abaixo da média. Também não são avaliados os táxis, veículos de frota, viaturas e outros que não se enquadrem no uso comum.
+                            <br />
+                            <br />
+                            A Tabela Fipe também não leva em conta a cor do veículo e a presença de acessórios. Por fim, vale lembrar que não é o ano de fabricação, mas o ano do modelo que é considerado.
+                            <br />
+                            <br />
+                            A partir desses dados, cada modelo de veículo recebe uma avaliação, que definirá o valor na Tabela Fipe. Hoje, o índice é a principal referência para lojistas, comerciante e vendedores.
+                            <br />
+                            <br />
+                            Porém, no caso de venda de automóveis, é importante usar o índice como um parâmetro, mas considerar outros fatores também. Afinal, o veículo pode conter acessórios e adicionais que o valorizam, por exemplo.
+                            <br />
+                            <br />
+                            Como visto, a Tabela Fipe tem muitas utilidades. E, embora não seja um instrumento obrigatório, é muito utilizada na formação de valores de veículos. Por isso, vale a pena acompanhar os valores divulgados mensalmente.
                         </Disclosure.Panel>
                         </>
                     )}
