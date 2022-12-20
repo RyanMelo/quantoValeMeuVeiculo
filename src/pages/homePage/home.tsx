@@ -61,7 +61,7 @@ export function Home() {
                 </div>
             </div>
 
-            <div className="bg-secondary-color">
+            <div className="bg-secondary-color py-5 lg:px-24 px-5 w-full">
                 <Faq/>
             </div>
         </>
