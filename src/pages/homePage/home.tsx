@@ -1,4 +1,4 @@
-import { Faq } from "../../components";
+import { Faq } from "components";
 
 export function Home() {
     return(
