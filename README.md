@@ -4,7 +4,7 @@
 Projeto com o objetivo de avaliar o preço do seu veiculo com base na tabela Fipe
 
  
-<a href="https://quantovalemeuveiculo.netlify.app/" target="_blank">Acesse clicando aqui</a> (em breve)
+<a href="https://quantovalemeuveiculo.netlify.app/" target="_blank">Acesse clicando aqui</a>
 ## Screenshots
 
 ### Desktop:
