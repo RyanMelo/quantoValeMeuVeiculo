@@ -1,5 +1,8 @@
 import { Faq } from "components";
 import { useEffect, useState } from "react";
+import Loading from "react-loading";
+import ReactLoading from 'react-loading';
+
 
 interface TipoVeiculo {
     id: number,
@@ -22,6 +25,7 @@ interface Caracteristicas {
 export function Home() {
 
     const [resultApi, setResultApi] = useState<ResultApi>();
+    const [isLoading, setIsLoading] = useState<boolean>();
 
     const [litaTipos, setListaTipo] = useState<TipoVeiculo[]>([
         {id: 0, content: "Carro", value: "carros"},
@@ -38,6 +42,10 @@ export function Home() {
     const [listModelos, setListModelos] = useState<Caracteristicas[]>();
     const [listAnos, setListAnos] = useState<Caracteristicas[]>();
 
+    const [selectMarcaIsEnable, setSelectMarcaIsEnable] = useState(false);
+    const [selectModeloIsEnable, setSelectModeloIsEnable] = useState(false);
+    const [selectAnoIsEnable, setSelectAnoIsEnable] = useState(false);
+
     const baseUrl = `https://parallelum.com.br/fipe/api/v1/`;
 
     const marcas = `${baseUrl}/${selectTipo}/marcas`
@@ -45,6 +53,7 @@ export function Home() {
     const anos = `${modelos}/${selectModelo}/anos`
 
     async function calculaValorVeiculo() {
+        setIsLoading(true);
         try {
             const url = `https://parallelum.com.br/fipe/api/v1/${selectTipo}/marcas/${selectMarca}/modelos/${selectModelo}/anos/${selectAno}`;
             const data = await fetch(url).then(res => res.json())
@@ -54,6 +63,7 @@ export function Home() {
         } catch (error) {
             console.error(error);
         }
+        setIsLoading(false);
     }
 
     async function getMarcas() {
@@ -105,8 +115,8 @@ export function Home() {
                         <h2 className="text-2xl xl:text-4xl font-extralight">Calcule o valor do seu <br /> carro, moto ou caminhāo!</h2>
 
                         <div className="mt-5">
-                            <select required className="w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="type" id="type"
-                                value={selectTipo} onChange={ e => setSelectTipo(e.target.value)}
+                            <select required className="cursor-pointer w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="type" id="type"
+                                value={selectTipo} onChange={ e => { setSelectTipo(e.target.value); setSelectMarcaIsEnable(true) }}
                             >
                                 <option>Selecione o tipo</option>
                                 <>
@@ -118,8 +128,8 @@ export function Home() {
                                 </>
                             </select>
 
-                            <select required className="mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="brand" id="brand"
-                                value={selectMarca} onChange={e => setSelectMarca(e.target.value)}
+                            <select disabled={!selectMarcaIsEnable} required className="disabled:cursor-not-allowed cursor-pointer mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="brand" id="brand"
+                                value={selectMarca} onChange={e => {setSelectMarca(e.target.value); setSelectModeloIsEnable(true)}}
                             >
                                 <option>Selecione a marca</option>
                                 <>
@@ -131,8 +141,8 @@ export function Home() {
                                 </>
                             </select>
 
-                            <select required className="mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="model" id="model"
-                                value={selectModelo} onChange={e => setSelectModelo(e.target.value)}
+                            <select disabled={!selectModeloIsEnable} required className="disabled:cursor-not-allowed cursor-pointer mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="model" id="model"
+                                value={selectModelo} onChange={e => {setSelectModelo(e.target.value); setSelectAnoIsEnable(true)}}
                             >
                                 <option>Selecione o modelo</option>
                                 <>
@@ -144,7 +154,7 @@ export function Home() {
                                 </>
                             </select>
 
-                            <select required className="mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="year" id="year"
+                            <select disabled={!selectAnoIsEnable} required className="disabled:cursor-not-allowed cursor-pointer mt-3 w-full rounded-md border-[1px] border-primary-color bg-secondary-color text-lg text-primary-color p-2" name="year" id="year"
                                 value={selectAno} onChange={e => setSelectAno(e.target.value)}
                             >
                                 <option>Selecione o ano</option>
@@ -157,7 +167,8 @@ export function Home() {
                                 </>
                             </select>
 
-                            <button className="mt-3 w-full rounded-md bg-primary-color p-2 text-white"
+                            <button className="disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer disabled:shadow-none shadow-lg hover:shadow-[#00C2FF] transition duration-150 ease-out hover:ease-in disabled:scale-100 hover:scale-[1.02] mt-3 w-full rounded-md bg-primary-color p-2 text-white"
+                                disabled={!selectMarca || !selectModelo || !selectAno}
                                 onClick={calculaValorVeiculo}>
                                     Calcular Valor</button>
 
@@ -178,10 +189,11 @@ export function Home() {
                                     consideração alguns aspectos de acordo com a tabela Fipe.</p>
                             </div>
                         : 
-                        <div className="bg-white p-5 flex flex-grow w-full max-h-max mt-3 lg:mt-0 drop-shadow-2xl items-center justify-center">
-                            
+                        <div className={isLoading ? "bg-white p-10 flex items-center justify-center flex-grow w-full max-h-max mt-3 lg:mt-0 drop-shadow-2xl" : "hidden"}>
+                            <ReactLoading  type="spin" color="#0E48D8" height={310} width={310} />
                         </div>
                     }
+                    
                 </div>
             </div>
 
