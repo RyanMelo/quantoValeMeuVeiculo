@@ -1,5 +1,5 @@
 import { Home } from "pages";
-import { Post } from "pages/monetag";
+import { Post } from "pages";
 import {
     BrowserRouter as Router,
     Routes,
