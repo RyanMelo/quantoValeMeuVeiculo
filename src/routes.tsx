@@ -1,5 +1,4 @@
 import { Home } from "pages";
-import { Post } from "pages";
 import {
     BrowserRouter as Router,
     Routes,
@@ -11,7 +10,6 @@ export default function AppRoutes() {
         <Router>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
-                    <Route path='post' element={<Post/>}/>
                 </Routes>
         </Router>
     );
