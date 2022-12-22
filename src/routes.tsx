@@ -11,7 +11,7 @@ export default function AppRoutes() {
         <Router>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
-                    <Route path='/post' element={<Post/>}/>
+                    <Route path='post' element={<Post/>}/>
                 </Routes>
         </Router>
     );
