@@ -202,9 +202,6 @@ export function Home() {
             </div>
 
             <footer className="bg-primary-color flex items-center justify-center py-10">
-                <a href="https://www.instagram.com/eu.ryanmelo/" target="_blank">
-                    <p className="text-secondary-color text-lg">Desenvolvido por Ryan Melo</p>
-                </a>
             </footer>
         </>
     );
