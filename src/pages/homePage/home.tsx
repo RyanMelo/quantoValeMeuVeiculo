@@ -197,13 +197,13 @@ export function Home() {
                     </div>
             </div>
 
-            <div className="bg-secondary-color py-7 lg:px-24 xl:px-48 px-5 w-full">
+            <div className="flex flex-col items-center bg-secondary-color py-7 lg:px-24 xl:px-48 px-5 w-full">
                 <RecentNews/>
                 <Faq/>
             </div>
 
-            <footer className="bg-primary-color flex items-center justify-center py-10 xl:px-48">
-                Desenvolvido por <a href="" target="_blanck">@RyaMelo</a> 
+            <footer className="bg-primary-color flex items-center justify-center py-5 xl:px-48">
+                <span className="text-white">Desenvolvido por <a href="https://www.instagram.com/eu.ryanmelo/" target="_blanck">@RyaMelo</a></span> 
             </footer>
         </>
     );

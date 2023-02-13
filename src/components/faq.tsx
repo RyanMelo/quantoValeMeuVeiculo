@@ -4,7 +4,7 @@ import { ChevronUpIcon } from '@heroicons/react/20/solid';
 export function Faq() {
     return(
         <>  
-            <div className=''>
+            <div className='w-full'>
                 <Disclosure>
                     {({ open }) => (
                         <>
@@ -34,7 +34,7 @@ export function Faq() {
                 </Disclosure>
             </div>
             
-            <div className='mt-7'>
+            <div className='mt-7 w-full'>
                 <Disclosure>
                     {({ open }) => (
                         <>
@@ -81,7 +81,7 @@ export function Faq() {
                 </Disclosure>
             </div>
 
-            <div className='mt-7'>
+            <div className='mt-7 w-full'>
                 <Disclosure>
                     {({ open }) => (
                         <>
