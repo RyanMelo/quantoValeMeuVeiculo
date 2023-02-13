@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #Ignore
-.src/services/firebase.ts
+/src/services/firebase.ts
