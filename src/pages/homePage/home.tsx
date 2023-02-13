@@ -203,6 +203,7 @@ export function Home() {
             </div>
 
             <footer className="bg-primary-color flex items-center justify-center py-10 xl:px-48">
+                Desenvolvido por <a href="" target="_blanck">@RyaMelo</a> 
             </footer>
         </>
     );
