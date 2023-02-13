@@ -24,4 +24,3 @@ dist-ssr
 *.sw?
 
 #Ignore esses aqui
-/src/services/firebase.ts
