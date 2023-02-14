@@ -1,4 +1,4 @@
-import { Faq, RecentNews } from "components";
+import { Faq } from "components";
 import { useEffect, useState } from "react";
 import Loading from "react-loading";
 import ReactLoading from 'react-loading';
@@ -198,7 +198,6 @@ export function Home() {
             </div>
 
             <div className="flex flex-col items-center bg-secondary-color py-7 lg:px-24 xl:px-48 px-5 w-full">
-                <RecentNews/>
                 <Faq/>
             </div>
 
