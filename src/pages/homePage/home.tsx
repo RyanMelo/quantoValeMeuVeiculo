@@ -202,6 +202,7 @@ export function Home() {
                 <Faq/>
             </div>
 
+
             <footer className="bg-primary-color flex items-center justify-center py-5 xl:px-48">
                 <span className="text-white">Desenvolvido por <a href="https://www.instagram.com/eu.ryanmelo/" target="_blanck">@RyaMelo</a></span> 
             </footer>
