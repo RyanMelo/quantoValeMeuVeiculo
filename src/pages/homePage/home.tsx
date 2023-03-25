@@ -1,41 +1,19 @@
 import { Faq } from "components";
 import { useEffect, useState } from "react";
-import Loading from "react-loading";
 import ReactLoading from 'react-loading';
-
-
-interface TipoVeiculo {
-    id: number,
-    content: string,
-    value: string,
-}
-
-interface ResultApi {
-    Valor: string,
-    Modelo: string,
-    CodigoFipe: string,
-    MesReferencia: string,
-}
-
-interface Caracteristicas {
-    "nome": string,
-    "codigo": string,
-}
+import {GetMarcas, GetModelos, GetAnos, GetResult} from 'services/apiRequests.service'
+import { listaTipos } from "models/VehicleType";
+import { ResultApi } from "models/ApiResult";
+import { Caracteristicas } from "models/Characteristics";
 
 export function Home() {
 
     const [resultApi, setResultApi] = useState<ResultApi>();
-    const [isLoading, setIsLoading] = useState<boolean>();
-
-    const [litaTipos, setListaTipo] = useState<TipoVeiculo[]>([
-        {id: 0, content: "Carro", value: "carros"},
-        {id: 1, content: "Moto", value: "motos"},
-        {id: 2, content: "Caminhāo", value: "caminhoes"},
-    ])
+    const [isLoading, setIsLoading] = useState<boolean>(false); 
 
     const [selectTipo, setSelectTipo] = useState<string>()
     const [selectMarca, setSelectMarca] = useState<string>();
-    const [selectModelo, setSelectModelo] = useState<string>();
+    const [selectModelo, setSelectModelo] = useState<any>();
     const [selectAno, setSelectAno] = useState<string>();
 
     const [listMarcas, setListMarcas] = useState<Caracteristicas[]>();
@@ -46,72 +24,56 @@ export function Home() {
     const [selectModeloIsEnable, setSelectModeloIsEnable] = useState(false);
     const [selectAnoIsEnable, setSelectAnoIsEnable] = useState(false);
 
-    const baseUrl = `https://parallelum.com.br/fipe/api/v1/`;
-
-    const marcas = `${baseUrl}/${selectTipo}/marcas`
-    const modelos = `${marcas}/${selectMarca}/modelos`
-    const anos = `${modelos}/${selectModelo}/anos`
-
     async function calculaValorVeiculo() {
         setIsLoading(true);
-        try {
-            const url = `https://parallelum.com.br/fipe/api/v1/${selectTipo}/marcas/${selectMarca}/modelos/${selectModelo}/anos/${selectAno}`;
-            const data = await fetch(url).then(res => res.json())
-            setResultApi(data);
-            // console.log(url)
-
-        } catch (error) {
-            console.error(error);
-        }
+        const data = await GetResult(selectTipo, selectMarca, selectModelo, selectAno);
+        setResultApi(data);
         setIsLoading(false);
     }
 
-    async function getMarcas() {
-        const data = await fetch(marcas, {method: 'GET'}).then(res => res.json())
-        setListMarcas(data)
-        // console.log(data)
+    async function fetchMarcas() {
+        const marcas = await GetMarcas(selectTipo);
+        setListMarcas(marcas)
     }
 
-    async function getModelos() {
-        const data = await fetch(modelos, {method: 'GET'}).then(res => res.json())
-        setListModelos(data.modelos)
-        // console.log(data.modelos)
+    async function fetchModelos() {
+        const modelos = await GetModelos(selectTipo, selectMarca);
+        setListModelos(modelos)
     }
 
-    async function getAnos() {
-        const data = await fetch(anos, {method: 'GET'}).then(res => res.json())
-        setListAnos(data)
-        // console.log(data)
+    async function fechAnos() {
+        const anos = await GetAnos(selectTipo, selectMarca, selectModelo);
+        setListAnos(anos)
     }
 
     useEffect(() => {
         if(selectTipo) {
-            getMarcas()
+            fetchMarcas();
         }
     }, [selectTipo])
 
     useEffect(() => {
         if(selectMarca) {
-            getModelos()
+            fetchModelos();
         }
     }, [selectMarca])
 
     useEffect(() => {
         if(selectModelo) {
-            getAnos()
+            fechAnos();
         }
     }, [selectModelo])
 
     return(
         <>
-            <div className="bg-primary-color py-5 lg:px-24 xl:px-48 px-5 w-full">
+            <div className="bg-primary-color py-5 lg:px-24 xl:px-72 px-5 w-full">
                     <div className="flex flex-row items-center">
                         <img src="./assets/images/car-logo.svg" alt="car-logo" className="w-[90px]"/>
                         <span className="text-2xl font-semibold text-white mt-3 ml-2">QUANTO VALE <br /> MEU VEÍCULO</span>
                     </div>
 
-                    <div className="flex lg:flex-row flex-col items-center justify-between mt-5 mb-5 w-full">
-                        <div className="bg-white p-5 lg:mr-10 flex-grow w-full max-h-max drop-shadow-2xl">
+                    <div className={isLoading || resultApi ? "grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 mt-5 mb-5 w-full" : "grid grid-cols-1 lg:gap-4 mt-5 mb-5 w-full"}>
+                        <div className="bg-white p-5 flex-grow w-full max-h-max drop-shadow-2xl">
                             <h2 className="text-2xl xl:text-4xl font-extralight">Calcule o valor do seu <br /> carro, moto ou caminhāo!</h2>
 
                             <div className="mt-5">
@@ -121,7 +83,7 @@ export function Home() {
                                     <option>Selecione o tipo</option>
                                     <>
                                     {
-                                        litaTipos.map(element => {
+                                        listaTipos?.map(element => {
                                             return <option value={element.value}>{element.content}</option>
                                         })
                                     }
@@ -177,13 +139,13 @@ export function Home() {
                         
                         {
                             resultApi ? 
-                                <div className="bg-white p-5 flex-grow w-full max-h-max mt-3 lg:mt-0 drop-shadow-2xl">
+                                <div className="bg-white p-5 lg:ml-10 flex-grow w-full max-h-max mt-3 lg:mt-0 drop-shadow-2xl">
                                     <h2 className="text-xl md:text-3xl text-primary-color">{resultApi?.Modelo}</h2>
                                     <p className="mt-6 text-primary-color text-lg">Codigo Tabela Fipe: {resultApi?.CodigoFipe}</p>
 
                                     <p className="mt-7 text-xl md:text-3xl font-bold text-primary-color">Preço Médio:</p>
                                     <h3 className="text-[36px] xl:text-7xl font-bold text-primary-color">{resultApi?.Valor}</h3>
-                                    <p className="text-xs md:text-lg text-primary-color">Ultima Atualização Em {resultApi?.MesReferencia}</p>
+                                    <p className="text-xs md:text-lg text-primary-color">Ultima Atualização em: {resultApi?.MesReferencia}</p>
                                 
                                     <p className="mt-7 xl:mt-11 text-primary-color text-sm xl:text-lg"><strong>Atenção: </strong>Este é um valor para que você possa tomar como base, levando em
                                         consideração alguns aspectos de acordo com a tabela Fipe.</p>
@@ -197,13 +159,13 @@ export function Home() {
                     </div>
             </div>
 
-            <div className="flex flex-col items-center bg-secondary-color py-7 lg:px-24 xl:px-48 px-5 w-full">
+            <div className="flex flex-col items-center bg-secondary-color py-7 lg:px-24 xl:px-72 px-5 w-full">
                 <Faq/>
             </div>
 
 
-            <footer className="bg-primary-color flex items-center justify-center py-5 xl:px-48">
-                <span className="text-white">Desenvolvido por <a href="https://www.instagram.com/eu.ryanmelo/" target="_blanck">@RyaMelo</a></span> 
+            <footer className="bg-primary-color flex items-center justify-center py-5 xl:px-72">
+                <span className="text-white">Desenvolvido por <a href="https://github.com/RyanMelo" target="_blanck">@RyaMelo</a></span> 
             </footer>
         </>
     );
