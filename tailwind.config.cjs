@@ -10,7 +10,8 @@ module.exports = {
       'primary-color': '#0E48D8',
       'secondary-color': '#D9D9D9',
       'white': '#ffffff',
-      'black': '#000000'
+      'black': '#000000',
+      'orange': '#ffaf33',
     }
   },
   plugins: [],
